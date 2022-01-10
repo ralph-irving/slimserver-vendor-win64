@@ -46,7 +46,7 @@ extern "C" {
 #if defined(_MSC_VER) || defined(__SUNPRO_C)
 #define debug()
 #else
-#ifdef WIN32
+#if defined(WIN32) && ! defined(__MINGW32__)
 #define debug(format)
 #else
 #define debug(...)

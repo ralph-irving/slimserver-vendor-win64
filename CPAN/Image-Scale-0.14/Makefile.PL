@@ -27,6 +27,9 @@ if ( $^O !~ /Win32/i ) {
     }
 
     push @LIBPATH, '-L/usr/local/lib';
+} else {
+    $DEFINES .= ' -IC:\Strawberry\c\include';
+    push @LIBPATH, '-LC:\Strawberry\c\lib';
 }
 
 my $result = GetOptions(
@@ -64,7 +67,7 @@ END
     exit 0;
 }
 
-my @check = qw(/usr/include /usr/local/include /opt/local/include);
+my @check = qw(C:\Strawberry\c\include /usr/include /usr/local/include /opt/local/include);
 
 # Check in environment-supplied locations before standard ones
 unshift @check, split /:/, $ENV{INCLUDE};
@@ -98,10 +101,10 @@ for my $incdir ( $jpeg_inc, @check ) {
             push @LIBS, '-ljpeg';
         }
 
-        if ( $^O =~ /Win32/i ) {
-            $JPEG_VERSION = _re_find( catfile($incdir, 'build', 'jconfig.h'), qr/JPEG_LIB_VERSION\s+(\d+)/ ) || 'unknown';
-        }
-        else {
+#       if ( $^O =~ /Win32/i ) {
+#           $JPEG_VERSION = _re_find( catfile($incdir, 'build', 'jconfig.h'), qr/JPEG_LIB_VERSION\s+(\d+)/ ) || 'unknown';
+#       }
+#       else {
             $JPEG_VERSION = _re_find( catfile($incdir, 'jpeglib.h'), qr/JPEG_LIB_VERSION\s+(\d+)/ ) || 'unknown';
             if ( $JPEG_VERSION eq 'unknown' ) {
                 # Also check jconfig.h as it contains the version when using libjpeg-turbo
@@ -112,7 +115,7 @@ for my $incdir ( $jpeg_inc, @check ) {
                     $JPEG_VERSION = _re_find( catfile($incdir, 'jconfig.h'), qr/JPEG_LIB_VERSION\s+(\d+)/ ) || 'unknown';
                 }
             }
-        }
+#       }
 
         $DEFINES .= " -DHAVE_JPEG -DJPEG_VERSION=$JPEG_VERSION";
 
@@ -228,23 +231,23 @@ print "  PNG support:      " . ( $PNG ? "yes ($png_inc, libpng version $PNG_VERS
 print "  GIF support:      " . ( $GIF ? "yes ($gif_inc, giflib version $GIF_VERSION)" : "no, install giflib v4.1 or higher" ) . "\n";
 print "\n";
 
-if ( $^O =~ /Win32/i ) {
-    *MY::postamble = sub {};
-
-    if ($JPEG) {
-        push @INC, '-I../libjpeg-turbo-1.1.1/build'; # for jconfig.h
-        $MYEXTLIB .= '../libjpeg-turbo-1.1.1/build/jpeg-static.lib ';
-    }
-
-    if ($PNG) {
-        push @INC, '-I../zlib';
-        $MYEXTLIB .= '../lpng143/libpng.lib ../zlib/zlib.lib ';
-    }
-
-    if ($GIF) {
-        $MYEXTLIB .= '../giflib-4.1.6/windows/Release/giflib.lib ';
-    }
-}
+#if ( $^O =~ /Win32/i ) {
+#    *MY::postamble = sub {};
+#
+#    if ($JPEG) {
+#        push @INC, '-I../libjpeg-turbo-1.1.1/build'; # for jconfig.h
+#        $MYEXTLIB .= '../libjpeg-turbo-1.1.1/build/jpeg-static.lib ';
+#    }
+#
+#    if ($PNG) {
+#        push @INC, '-I../zlib';
+#        $MYEXTLIB .= '../lpng143/libpng.lib ../zlib/zlib.lib ';
+#    }
+#
+#    if ($GIF) {
+#        $MYEXTLIB .= '../giflib-4.1.6/windows/Release/giflib.lib ';
+#    }
+#}
 
 my $inc_files = join(' ', glob 'include/*.h');
 my $src_files = join(' ', glob 'src/*.c');

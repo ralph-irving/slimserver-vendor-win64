@@ -29,7 +29,7 @@ _check_buf(PerlIO *infile, Buffer *buf, int min_wanted, int max_wanted)
     uint32_t actual_wanted;
     unsigned char *tmp;
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined (__MINGW32__)
     uint32_t pos_check = PerlIO_tell(infile);
 #endif
     
@@ -67,7 +67,7 @@ _check_buf(PerlIO *infile, Buffer *buf, int min_wanted, int max_wanted)
       goto out;
     }
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined (__MINGW32__)
     // Bug 16095, weird off-by-one bug seen only on Win32 and only when reading a filehandle
     if (PerlIO_tell(infile) != pos_check + read) {
       //PerlIO_printf(PerlIO_stderr(), "Win32 bug, pos should be %d, but was %d\n", pos_check + read, PerlIO_tell(infile));
@@ -87,7 +87,7 @@ out:
 off_t
 _file_size(PerlIO *infile)
 {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined (__MINGW32__)
   // Win32 doesn't work right with fstat
   off_t file_size;
   
