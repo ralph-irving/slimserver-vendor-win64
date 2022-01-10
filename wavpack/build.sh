@@ -8,9 +8,9 @@ OS=`uname`
 BUILD=$PWD/build
 
 # Wavpack version
-VERSION="5.3.0"
+VERSION="5.4.0"
 
-FLAGS=""
+FLAGS="-s"
 # Mac-specific flags (must be built on Leopard)
 if [ $OS = "Darwin" ]; then
 #    FLAGS="-arch i386 -arch ppc -isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.3"

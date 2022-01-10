@@ -405,7 +405,7 @@ WMAReader::OnSample(DWORD dwOutputNum,
                     void __RPC_FAR *pvContext) {
 
   if (bDebug) {
-    fprintf(stderr, "cnsSampleTime: [%d]\n", cnsSampleTime);
+    fprintf(stderr, "cnsSampleTime: [%lld]\n", cnsSampleTime);
   }
 
   if (dwOutputNum != m_dwOutputNum) {
