@@ -4,6 +4,7 @@
 ###########################################
 use strict;
 use Test::More;
+use Win32;
 use Log::Log4perl qw(:easy);
 
 BEGIN {

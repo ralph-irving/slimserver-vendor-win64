@@ -6,6 +6,8 @@ use File::Temp qw(tempfile);
 
 use constant INTERNAL_DEBUG => 0;
 
+our $resurrecting = '';
+
 ###########################################
 sub import {
 ###########################################
@@ -42,6 +44,15 @@ sub resurrector_loader {
 ###########################################
     my ($code, $module) = @_;
 
+      # Avoid recursion
+    if($resurrecting eq $module) {
+        print "ignoring $module (recursion)\n" if INTERNAL_DEBUG;
+        return undef;
+    }
+    
+    $resurrecting = $module;
+    
+    
       # Skip Log4perl appenders
     if($module =~ m#^Log/Log4perl/Appender#) {
         print "Ignoreing $module (Log4perl-internal)\n" if INTERNAL_DEBUG;
