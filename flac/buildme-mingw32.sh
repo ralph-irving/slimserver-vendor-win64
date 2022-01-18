@@ -8,7 +8,6 @@ LOG=$PWD/config.log
 CHANGENO=$(git rev-parse --short HEAD)
 ARCH=`arch`
 OUTPUT=$PWD/flac-build-$ARCH-$CHANGENO
-CORES=$(grep -c ^processor /proc/cpuinfo)
 
 # Clean up
 rm -rf $OUTPUT
@@ -21,7 +20,6 @@ date > $LOG
 # '-O2' reduces binary size with minimal performance loss.
 export CFLAGS="-O2"
 export CXXFLAGS="-O2"
-export LIBS="-lssp"
 
 ## Build Ogg first
 echo "Untarring libogg-$OGG.tar.gz..."
@@ -43,6 +41,8 @@ patch -p1 < ../01-flac.patch >> $LOG
 patch -p1 < ../02-flac-C-locale.patch >> $LOG
 echo "Configuring..."
 ./configure --with-ogg-includes=$PWD/../libogg-$OGG/include --with-ogg-libraries=$PWD/../libogg-$OGG/src/.libs/ --disable-doxygen-docs --disable-shared --disable-xmms-plugin --disable-cpplibs --prefix $OUTPUT >> $LOG
+echo "Disabling Fortify Sources"
+find . -name Makefile -exec sed 's/ -D_FORTIFY_SOURCE=2//g' -i {} \;
 echo "Running make"
 make -j $CORES >> $LOG
 echo "Running make install"
