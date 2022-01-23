@@ -520,6 +520,7 @@ qefft2_face_has_glyph_names (Font_FreeType_Face face)
         RETVAL
 
 
+#if 0
 bool
 qefft2_face_has_reliable_glyph_names (Font_FreeType_Face face)
     CODE:
@@ -532,6 +533,7 @@ qefft2_face_has_reliable_glyph_names (Font_FreeType_Face face)
     OUTPUT:
         RETVAL
 
+#endif
 
 bool
 qefft2_face_is_italic (Font_FreeType_Face face)
@@ -785,6 +787,7 @@ qefft2_glyph_DESTROY (Font_FreeType_Glyph glyph)
         Safefree(glyph);
 
 
+#if 0
 SV *
 qefft2_glyph_char_code (Font_FreeType_Glyph glyph)
     PREINIT:
@@ -814,6 +817,7 @@ qefft2_glyph_char_code (Font_FreeType_Glyph glyph)
     OUTPUT:
         RETVAL
 
+#endif
 
 FT_UInt
 qefft2_glyph_index (Font_FreeType_Glyph glyph)
@@ -940,7 +944,7 @@ qefft2_glyph_has_outline (Font_FreeType_Glyph glyph)
     OUTPUT:
         RETVAL
 
-
+#if 0
 void
 qefft2_glyph_outline_bbox (Font_FreeType_Glyph glyph)
     PREINIT:
@@ -963,6 +967,7 @@ qefft2_glyph_outline_bbox (Font_FreeType_Glyph glyph)
         PUSHs(sv_2mortal(newSVnv((double) bbox.xMax / 64.0)));
         PUSHs(sv_2mortal(newSVnv((double) bbox.yMax / 64.0)));
 
+#endif
 
 void
 qefft2_glyph_outline_decompose_ (Font_FreeType_Glyph glyph, HV *args)
