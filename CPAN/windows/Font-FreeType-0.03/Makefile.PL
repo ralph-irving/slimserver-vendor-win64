@@ -5,10 +5,10 @@ WriteMakefile(
     NAME            => 'Font::FreeType',
     AUTHOR          => 'Geoff Richards <qef@laxan.com>',
     VERSION_FROM    => 'lib/Font/FreeType.pm',
-    LIBS            => [ '-L../build/lib -lfreetype_s' ],
-    INC             => '-I../build/include -I../build/include/freetype2',
+    LIBS            => [ '-Lfreetype-2.4.2/objs -lfreetype' ],
+    INC             => '-Ifreetype-2.4.2/include -Ifreetype-2.4.2/include/freetype2',
     NO_META         => 1,
-    MYEXTLIB        => '../build/lib/libfreetype_s.a',
+    MYEXTLIB        => 'freetype-2.4.2/objs/freetype.a',
 );
 
 
