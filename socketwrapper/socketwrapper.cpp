@@ -79,12 +79,17 @@
 // Version 1.11
 // Fix to stop socketwrapper not shutting down properly when input from stdin and output pipe is closed.
 //
+//
+// ++++++
+// Version 1.12
+// Add MINGW32 compiler support.
+//
 
 #include <process.h>
 #include "stdafx.h"
 #include "getopt.h"
 
-#define	 SW_ID			  "Socketwrapper 1.12gw64\n"
+#define	 SW_ID			  "Socketwrapper 1.12\n"
 
 // defines & global vars for extra thread mode
 #define  MAX_STEPS        16
