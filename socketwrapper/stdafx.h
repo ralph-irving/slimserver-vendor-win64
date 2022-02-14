@@ -9,7 +9,9 @@
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
+#ifndef __MINGW32__
 #define _WIN32_WINNT 0x0500
+#endif
 
 #include <iostream>
 #include <tchar.h>

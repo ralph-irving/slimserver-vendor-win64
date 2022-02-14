@@ -84,7 +84,7 @@
 #include "stdafx.h"
 #include "getopt.h"
 
-#define	 SW_ID			  "Socketwrapper 1.11beta\n"
+#define	 SW_ID			  "Socketwrapper 1.12gw64\n"
 
 // defines & global vars for extra thread mode
 #define  MAX_STEPS        16
@@ -277,9 +277,11 @@ unsigned __stdcall MoveDataThreadProc(void *pv)
 	return 0;
 }
 
-
-
+#ifndef __MINGW32__
 DWORD main(int argc, char **argv)
+#else
+int main(int argc, char **argv)
+#endif
 {
 	USHORT inputPort = 0, outputPort = 0;
 	SOCKET inputSocket = INVALID_SOCKET, outputSocket = INVALID_SOCKET;
@@ -336,6 +338,10 @@ DWORD main(int argc, char **argv)
 	// reset our arrays
 	int numSteps = 0;
 
+#ifdef __MINGW32__
+	bool fDie = false;
+	DWORD deadstep = -1;
+#endif
 	Stage info[MAX_STEPS] = {0};
 	HANDLE hChild[MAX_STEPS] = {0};
 
@@ -585,9 +591,11 @@ DWORD main(int argc, char **argv)
 		}
 	}
 
+#ifndef __MINGW32__
 	bool fDie = false;
 	DWORD deadstep = -1;
 
+#endif
 	while( !fDie )	{
 		DWORD wr = WaitForMultipleObjects( numSteps, hChild, FALSE, bDebug ? DEBUG_TIMEOUT : TIMEOUT );
 		if( wr!=WAIT_TIMEOUT ) {
