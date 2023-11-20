@@ -1,0 +1,46 @@
+# Avoid version control files.
+\bRCS\b
+\bCVS\b
+,v$
+\B\.svn\b
+\B\.git\b
+\B\.gitignore\b
+
+# Avoid Makemaker generated and utility files.
+\bMakefile$
+\bblib
+\bMakeMaker-\d
+\bpm_to_blib$
+\bblibdirs$
+^MANIFEST\.SKIP$
+
+# Avoid Module::Build generated and utility files.
+\bBuild$
+\b_build
+
+# Avoid temp and backup files.
+~$
+\.tmp$
+\.old$
+\.bak$
+\#$
+\b\.#
+\.DS_Store$
+\bautom4te.cache
+\bconfig.status
+\bScan\.bs$
+\bScan\.c$
+\bScan\.o$
+
+# No tarballs!
+\.gz$
+
+# Dev stuff
+^.travis.yml$
+TODO
+t/mp3/source.mp3
+t/mp3/ext
+
+# https://weblog.bulknews.net/stop-shipping-mymeta-to-cpan-b92215a227f6
+^MYMETA\.yml$
+^MYMETA\.json$
