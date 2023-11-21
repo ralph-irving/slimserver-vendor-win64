@@ -33,8 +33,8 @@
 
 #define DEFAULT_BLOCK_SIZE 4096
 
-#if ! defined(_MSC_VER) && ! defined (__MINGW32__)
 // We use the built-in GUID type on Windows
+#ifndef _WIN32
 typedef struct _GUID {
   uint32_t Data1;
   uint16_t Data2;
